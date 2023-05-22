@@ -23,7 +23,7 @@ public class Main {
 
 		double result = calculaImc(a1,p1);
 		System.out.printf("%.2f", result);
-		
+		f
 		System.out.println(avaliaImc);
 		
 	
