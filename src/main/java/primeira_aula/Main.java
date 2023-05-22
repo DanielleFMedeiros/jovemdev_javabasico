@@ -8,7 +8,7 @@ public class Main {
 
 		int vetor[] = new int[10];
 		for(int i = 0; i < 10; i++) {
-			String nome = JOptionPane.showInputDialog("Digite seu nome: ");
+			String nome = JOptionPane.showInputDialog("Digited seu nome: ");
 			System.out.println(nome);
 			String sexo = JOptionPane.showInputDialog("Digite o sexo(F ou M): ");
 			System.out.println(sexo);
