@@ -29,9 +29,6 @@ public class Main {
 				
 				carros.add(new Carro(marca, anoFabricacao, corSelecionada));
 				JOptionPane.showMessageDialog(null, "Carro cadastrado com sucesso!");
-				
-
-					
 			}
 			
 			if(op == 2) {
@@ -45,7 +42,7 @@ public class Main {
                     for (Carro carro : carrosPorPeriodo) {
                         mostraCarrosPorPeriodo += "Marca: " + carro.getMarca() + ", Ano: " + carro.getAnoFabricacao() + ", Cor: " + carro.getCor() + "\n" ;
                     }
-                    mostraCarrosPorPeriodo += "Percentual: " + percentualPeriodo + "%";
+                    mostraCarrosPorPeriodo += String.format("Percentual: %.2f%%",percentualPeriodo, "%");
 
                    System.out.println(mostraCarrosPorPeriodo);
                    
@@ -61,7 +58,7 @@ public class Main {
 				for (Carro carro : carrosPorMarca) {
 					mostraCarroPorMarca += "\nAno: " + carro.getAnoFabricacao() + ", Cor: " + carro.getCor() + "\n";
 				}
-				mostraCarroPorMarca += "\nPercentual: " + percentualMarca + "%";
+				mostraCarroPorMarca += String.format("\nPercentual: %.2f%%", percentualMarca, "%");
 
 				System.out.println(mostraCarroPorMarca);
 			}
@@ -78,11 +75,15 @@ public class Main {
                     for (Carro carro : carrosPorCor) {
                         mensagemCor += "Marca: " + carro.getMarca() + ", Ano: " + carro.getAnoFabricacao() + ", Cor: " + carro.getCor() + "\n";
                     }
-                    mensagemCor += "Percentual: " + percentualCor + "%";
+                    mensagemCor += String.format("Percentual: ", percentualCor, "%");
 
                     System.out.println( mensagemCor);
                     
 				
+			}
+			
+			if (op > 5) {
+				JOptionPane.showMessageDialog(null, "Opção Invalida");
 			}
 		}while(op != 5);
 	}
