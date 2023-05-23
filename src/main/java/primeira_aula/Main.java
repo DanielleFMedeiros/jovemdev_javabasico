@@ -6,62 +6,73 @@ public class Main {
 	
 	public static void main(String[] args) {
 
-		int vetor[] = new int[1];
-		for(int i = 0; i < 1; i++) {
-			String nome = JOptionPane.showInputDialog("Digite seu nome: ");
-			System.out.println(nome);
+		String pessoas = JOptionPane.showInputDialog("Digite o número de pessoas: ");
+		int qtdePessoas = Integer.parseInt(pessoas);
+
+		String[] nome = new String[qtdePessoas];
+        char[] sexo = new char[qtdePessoas];
+        double[] p1 = new double[qtdePessoas];
+        double[] a1 = new double[qtdePessoas];
+
+		for(int i = 0; i < qtdePessoas; i++) {
+			nome[i] = JOptionPane.showInputDialog("Digite seu nome: ");
+			System.out.println("Nome: " + nome[i]);
 			
-			String sexo = JOptionPane.showInputDialog("Digite o sexo(F ou M): ");
-			System.out.println(sexo);
+			String sex = JOptionPane.showInputDialog("Digite o sexo(F ou M): ");
+			sexo[i] = sex.charAt(0);
+			System.out.println("Sexo: " + sexo[i]);
 			
 			String peso = JOptionPane.showInputDialog("Digite seu peso: ");
-			double p1 = Double.parseDouble(peso);
-			System.out.println(peso);
+			p1[i] = Double.parseDouble(peso);
+			System.out.println("Peso: " + peso);
 			
 			String altura = JOptionPane.showInputDialog("Digite sua altura: ");
-			double a1 = Double.parseDouble(altura);
-			System.out.println(altura);
+			a1[i] = Double.parseDouble(altura);
+			System.out.println("Altura: " + altura);
 			
-			double result = calculaImc(a1,p1);
-			System.out.printf("%.2f", result);
+			double result = calculaImc(a1[i],p1[i]);
+			System.out.printf("O IMC é: %.2f \n", result);
 			
-			avaliaImc(result,sexo);
+			String avalia = avaliaImc(result, sexo[i]);
+			System.out.println("Avaliação do Imc: " + avalia);
 
 		}
 		
 	}
 	
-	private static double calculaImc(double a1, double p1) {
-		double imc = p1/a1;
-		return  imc;
+	public static double calculaImc(double a1, double p1) {
+		return p1/(a1*a1);
 	}
 	
-	private static void avaliaImc(double imc, String sexo) {
-		for(int i = 0; i < 1; i++) {
-			if(sexo == "Feminino" && imc<19.1) {
-				System.out.println("Abaixo do peso");
-			}else if(sexo == "Feminino" && imc<25.8 && imc>19.1) {
-				System.out.println("Peso ideal");
-			}else if(sexo == "Feminino" && imc<27.3 && imc>25.9){
-				System.out.println("Pouco acima do peso");
-			}else if(sexo == "Feminino" && imc<32.3 && imc>27.4){
-				System.out.println("Acima do peso");
-			}else if(sexo == "Feminino" && imc>=32.4) {
-				System.out.println("Obesidade");
+	private static String avaliaImc(double result, char sexo) {
+		if(sexo == 'F' || sexo == 'f' ){
+			if(result<19.1) {
+				return "Abaixo do peso";
+			}else if(result<25.8 && result>19.1) {
+				return "Peso ideal";
+			}else if(result<27.3 && result>25.9){
+				return"Pouco acima do peso";
+			}else if(result<32.3 && result>27.4){
+				return "Acima do peso";
+			}else{
+				return "Obesidade";
 			}
-			
-			if(sexo == "M" && imc<20.7) {
-				System.out.println("Abaixo do peso");
-			}else if(sexo == "Masculino" && imc<26.4 && imc>20.7) {
-				System.out.println("Peso ideal");
-			}else if(sexo == "Masculino" && imc<27.8 && imc>26.5) {
-				System.out.println("Pouco acima do peso");
-			}else if(sexo == "Masculino" && imc<31.1 && imc>27.9) {
-				System.out.println("Acima do peso");
-			}else if(sexo == "Masculino" && imc>31.2) {
-				System.out.println("Obesidade");
+		}else if(sexo == 'M'|| sexo == 'm' ){
+			if(result<20.7) {
+				return "Abaixo do peso";
+			}else if(result<26.4 && result>20.7) {
+				return "Peso ideal";
+			}else if(result<27.8 && result>26.5) {
+				return "Pouco acima do peso";
+			}else if(result<31.1 && result>27.9) {
+				return "Acima do peso";
+			}else if(result>31.2) {
+				return "Obesidade";
 			}
+		}else {
+			return "Digite novamente";
 		}
+		return null;
 		
 	}
 
