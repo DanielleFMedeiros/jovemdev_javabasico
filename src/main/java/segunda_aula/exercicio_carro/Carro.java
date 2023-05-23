@@ -5,50 +5,35 @@ import javax.swing.JOptionPane;
 public class Carro {
 	
 	String marca;
-	String cor;
+	Cor cor;
 	int anoFabricacao;
-	int anoInicial;
-	int anoFinal;
-
 	
-	public enum Cor{BLACK, GRAY, WHITE}
-	
-	public void cadastra() {
-		marca = JOptionPane.showInputDialog("Marca: ");
-		anoFabricacao = Integer.parseInt(JOptionPane.showInputDialog("Ano Fabricação: "));
-		System.out.println("Selecione uma cor");
-		System.out.println("1 - Vermelho");
-	    System.out.println("2 - Verde");
-	    System.out.println("3 - Azul");
-	    System.out.print("Opção: ");
-	    
-	}
-		
-	
-	
-	public void listarPorPeriodo() {
-		JOptionPane.showMessageDialog(null, "Qual período você deseja? ");
-		anoInicial = Integer.parseInt(JOptionPane.showInputDialog("Ano Inicial: "));
-		anoFinal = Integer.parseInt(JOptionPane.showInputDialog("Ano final: "));
-		if(anoInicial >= anoFabricacao && anoFinal<= anoFabricacao) {
-			System.out.println(marca + ", Ano: " + anoFabricacao);
-		}else {
-			System.out.println("Digite um periodo válido");
-		}
-	}
-	
-	
-	public void listarPorMarca(){
-		marca = JOptionPane.showInputDialog("Marca: ");
-		if (marca.equals(marca.toUpperCase())) {
-		    System.out.println(marca);
-		} else {
-		    System.out.println("A string não foi digitada totalmente em letras maiúsculas.");
-		}
+	public enum Cor{
+		BLACK,
+		GRAY, 
+		WHITE,
+		GREEN,
+		YELLOW,
+		BLUE,
+		RED;
 	}
 
+	public Carro(String marca, int anoFabricacao, Cor cor){
+		this.marca = marca;
+		this.anoFabricacao = anoFabricacao;
+		this.cor = cor;
+	}
 
+	public String getMarca(){
+		return marca;
+	}
 
-	
-	
+	public int getAnoFabricacao(){
+		return anoFabricacao;
+	}
+
+	public Cor getCor(){
+		return cor;
+	}
+
 }
