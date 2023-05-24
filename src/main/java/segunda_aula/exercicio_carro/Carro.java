@@ -1,7 +1,5 @@
 package segunda_aula.exercicio_carro;
 
-import javax.swing.JOptionPane;
-
 import lombok.Getter;
 import lombok.Setter;
 @Getter
