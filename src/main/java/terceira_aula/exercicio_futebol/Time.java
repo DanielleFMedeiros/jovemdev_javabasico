@@ -1,64 +1,59 @@
 package terceira_aula.exercicio_futebol;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@AllArgsConstructor
 
 public class Time {
-	
-	private static EnumTime nomeTime;
-	private static List<Jogador> jogadores;
-	
-	public Time(EnumTime nomeTime) {
-		this.nomeTime = nomeTime;
-		jogadores = new ArrayList();
-	}
-	
-   public void addJogador(Jogador jogador) {
-        jogadores.add(jogador);
-    }
-   
-   public List<Jogador> getJogadores() {
-       return jogadores;
-   }
-   
-   public EnumTime getNome() {
-       return nomeTime;
-   }
 
-	void cadastrarTime() {
-		Util.escolherTime();
-		Jogador j = new Jogador();
-		j.cadastrarJogador();
-		jogadores.add(j);
-		Util.voltarAoMenu();
+	private EnumTime nome;
+	private List<Jogador> jogadores;
+
+	public Time(EnumTime nome) {
+		this.nome = nome;
+		this.jogadores = new ArrayList();
 	}
 
-	public static String listaJogadoresTime(List<Time> lista) {
-		Util.escolherTime();
-		String ret = "Jogadores do time: " + Util.escolherTime() + "\n";
-        for (Jogador jogador : jogadores) {
-        	Jogador j = new Jogador();
-        	j.cadastrarJogador();
-        	return ret + jogadores;
-        }
-        ret = ret+ "Número Camisa: " + Jogador.getNumeroCamisa() +"\n";
-        return ret;
-    	//jogador artilheiro do time
-    }
-	
-	private static Object getTime() {
-		// TODO Auto-generated method stub
-		return null;
+	public void cadastrarJogador(String nome, int numeroCamisa, int gols) {
+		Jogador jogador = new Jogador(nome, numeroCamisa, gols);
+		jogadores.add(jogador);
+	}
+
+	public List<Jogador> getJogadores() {
+		return jogadores;
+	}
+
+	public void adicionarJogador(Jogador jogador) {
+		jogadores.add(jogador);
+	}
+
+	public int getTotalGolsMarcados() {
+		int totalGols = 0;
+		for (Jogador jogador : jogadores) {
+			totalGols += jogador.getGolsMarcados();
+		}
+		return totalGols;
 	}
 
 	public Jogador getArtilheiro() {
-		Jogador artilheiro = jogadores.get(0);
+		Jogador artilheiro = null;
+		int maxGols = 0;
 		for (Jogador jogador : jogadores) {
-			if(jogador.getGols()>artilheiro.getGols()) {
+			if (jogador.getGolsMarcados() > maxGols) {
+				maxGols = jogador.getGolsMarcados();
 				artilheiro = jogador;
-				}
 			}
-		return artilheiro;
 		}
+		return artilheiro;
 	}
 
+	public EnumTime getNome() {
+		return nome;
+	}
+
+}
