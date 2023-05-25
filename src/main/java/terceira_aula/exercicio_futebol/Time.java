@@ -19,8 +19,7 @@ public class Time {
 		this.jogadores = new ArrayList();
 	}
 
-	public void cadastrarJogador(String nome, int numeroCamisa, int gols) {
-		Jogador jogador = new Jogador(nome, numeroCamisa, gols);
+	public void cadastrarJogador(Jogador jogador) {
 		jogadores.add(jogador);
 	}
 

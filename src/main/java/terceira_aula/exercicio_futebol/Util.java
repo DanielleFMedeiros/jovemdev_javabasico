@@ -15,18 +15,33 @@ public class Util {
 		Time time = new Time(nomeTime);
 
 		boolean adicionarJogador = true;
+
 		while (adicionarJogador) {
 			String nomeJogador = JOptionPane.showInputDialog("Digite o nome do Jogador:");
 			int numeroCamisa = Integer.parseInt(JOptionPane.showInputDialog("Digite o número da camisa do Jogador:"));
-			int golsMarcados = Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade de gols marcados pelo Jogador:"));
-			time.cadastrarJogador(nomeJogador, numeroCamisa, golsMarcados);
+			int golsMarcados = Integer
+					.parseInt(JOptionPane.showInputDialog("Digite a quantidade de gols marcados pelo Jogador:"));
+
+			Jogador jogador = new Jogador(nomeJogador, numeroCamisa, golsMarcados);
+
+			boolean dadosValidos = jogador.validar();
+
+			if (dadosValidos) {
+				time.cadastrarJogador(jogador); // Corrigido para passar o objeto jogador como argumento
+				JOptionPane.showMessageDialog(null, "Jogador cadastrado com sucesso!");
+			} else {
+				JOptionPane.showMessageDialog(null, "Dados inválidos do jogador. Digite novamente.");
+				continue; // Volta para o início do loop para solicitar dados novamente
+			}
 
 			int resposta = JOptionPane.showConfirmDialog(null, "Deseja adicionar mais jogadores?",
-					"Adicionar Jogadores", JOptionPane.YES_NO_OPTION);
+					"Adicionar Jogadores",
+					JOptionPane.YES_NO_OPTION);
 			adicionarJogador = (resposta == JOptionPane.YES_OPTION);
 		}
 
 		return time;
+
 	}
 
 	public static void listarJogadores(Time time) {
