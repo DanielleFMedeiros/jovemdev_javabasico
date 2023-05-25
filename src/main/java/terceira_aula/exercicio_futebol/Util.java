@@ -6,6 +6,17 @@ import javax.swing.JOptionPane;
 
 public class Util {
 	static String desejaVoltar;
+	
+	static EnumTime escolherTime() {
+		String menu = "Times disponiveis:\n";
+		
+		for(EnumTime nomeTime: EnumTime.values()) {
+			menu += nomeTime.getCodigo() + " - " + nomeTime.getDescricao()+"\n";
+		}
+		int op = Integer.parseInt(JOptionPane.showInputDialog(menu));
+		return EnumTime.findById(op);
+	}
+	
 	public static int escolherOP() {
 		String menu = "1 - Cadastrar Time\r\n"
 				+ "2 - Listar todos jogadores de um time\r\n"
@@ -15,42 +26,29 @@ public class Util {
 				
 		return Integer.parseInt(JOptionPane.showInputDialog(menu));
 	}
-	//cadastro time
-	//cadastro de cada jogador do referido time
-	public static String voltarAoMenu(){
-		desejaVoltar = JOptionPane.showInputDialog("Deseja voltar ao menu? ");
-		String resposta = "sim";
-		if(desejaVoltar.equals("sim")){
+	
+	
+	public static int voltarAoMenu(){
+		desejaVoltar = JOptionPane.showInputDialog("Deseja voltar ao menu? 1-Sim 2-Não");
+		int resposta = Integer.parseInt(desejaVoltar);
+		if(resposta == 1){
 			escolherOP();
-		}else{
-			Jogador.cadastrar();
+		}else if(resposta ==2){
+			Jogador jogador = new Jogador();
+			jogador.cadastrarJogador();
 		}
 		return resposta;
 	}
-/* 
-	public static boolean voltar(){
-		if(desejaVoltar.equals("sim")){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	*/
+    //Buscar time parametro lista times q está no principal
+	//metodo retorna artilheiro do campeonato
 
-    public static Object listaJogadoresTime(List<Time> lista) {
-
+    public String listaArtilheiros(List<Time> lista) {
         return null;
     }
-
-    public static Object listaArtilheiros(List<Time> lista) {
-        return null;
-    }
-	public static Object listaTimeGols(List<Time> lista) {
+	public String listaTimeGols(List<Time> lista) {
 		return null;
 	}
 
-
-	
 	//listar todos os jogadores de um time
 	//verificar artilheiro do campeonato
 	//verificar qual time fez mais gols no campeonato
