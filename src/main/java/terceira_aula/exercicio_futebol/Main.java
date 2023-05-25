@@ -25,7 +25,7 @@ public class Main {
 			case 5:
 				JOptionPane.showMessageDialog(null, "Você saiu do programa!");
 			default:
-				JOptionPane.showMessageDialog(null, t);
+				JOptionPane.showMessageDialog(null, "Opção inválida");
 				
 			}
 			

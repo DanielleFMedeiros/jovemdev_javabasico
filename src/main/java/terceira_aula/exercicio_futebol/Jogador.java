@@ -3,11 +3,11 @@ package terceira_aula.exercicio_futebol;
 import javax.swing.JOptionPane;
 
 public class Jogador {
-	private String nomeJogador;
-	private int numeroCamisa;
-	private int golsMarcados;
+	private static String nomeJogador;
+	private static int numeroCamisa;
+	private static int golsMarcados;
 	
-	void cadastrar() {
+	static void cadastrar() {
 		nomeJogador = JOptionPane.showInputDialog("Nome do jogador: ");
 		numeroCamisa = Integer.parseInt(JOptionPane.showInputDialog("Número da Camisa: "));
 		golsMarcados = Integer.parseInt(JOptionPane.showInputDialog("Quantidade de gols marcados no campeonato: "));
@@ -16,7 +16,7 @@ public class Jogador {
 		}
 	}
 	
-	boolean validar() {
+	static boolean validar() {
 		if(nomeJogador.trim().equals("")) {
 			JOptionPane.showMessageDialog(null, "O nome do jogador deve ser preenchido");
 			return false;
