@@ -7,12 +7,12 @@ import javax.swing.JOptionPane;
 
 public class Autor {
     private String nome;
-    private String sexo;
+    private char sexo;
     private int idade;
     //idade nao pode ser negativa
     //sexo f ou m
 
-    public Autor(String nome, int i, int idade){
+    public Autor(String nome, char sexo, int idade){
         this.nome = nome;
         this.sexo = sexo;
         this.idade = idade;
@@ -22,37 +22,60 @@ public class Autor {
         return nome;
     }
 
-    public String getSexo() {
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public char getSexo() {
         return sexo;
+    }
+
+    public void setSexo(char sexo) {
+        this.sexo = sexo;
     }
 
     public int getIdade() {
         return idade;
     }
 
-    @Override
-    public String toString(){
-        return "Autor: " + nome + ", Sexo: " + sexo + ", idade: " + idade;
+    public void setIdade(int idade) {
+        this.idade = idade;
     }
 
+
     public boolean validar() {
-        if (getNome().trim().equals("")) {
-			JOptionPane.showMessageDialog(null, "O nome do autor deve ser preenchido");
+        if (getNome().trim().equals("") || !getNome().contains(" ")){
+			JOptionPane.showMessageDialog(null, "O nome e o sobrenome do autor devem ser preenchidos");
 			return false;
 		}
 
-		if (sexo != "F" || sexo != "M") {
+		if (sexo != 'F' && sexo != 'M') {
 			JOptionPane.showMessageDialog(null, "sexo inválido, tente novamente");
 			return false;
 		}
-		if (idade < 0) {
+		if (idade <= 0) {
 			JOptionPane.showMessageDialog(null, "idade inválida, digite novamente");
 			return false;
+		
 		}
 		return true;
     }
+    
+    @Override
+    public String toString() {
+        return "Autor: " + nome + " " + ", Sexo: " + sexo + ", Idade: " + idade;
+    }
 
-    public void add(ArrayList<Autor> autores) {
+    public List<Livro> getLivros(List<Livro> todosLivros) {
+        List<Livro> livrosDoAutor = new ArrayList<>();
+
+        for (Livro livro : todosLivros) {
+            if (livro.getAutores().contains(this)) {
+                livrosDoAutor.add(livro);
+            }
+        }
+
+        return livrosDoAutor;
     }
 
 }
