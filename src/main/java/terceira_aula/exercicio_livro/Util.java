@@ -73,16 +73,26 @@ public class Util {
 	    String titulo = JOptionPane.showInputDialog("Título do Livro:");
 	    double preco = Double.parseDouble(JOptionPane.showInputDialog("Preço do Livro:"));
 
+	    ArrayList<String> autoresCadastrados = new ArrayList<>();
+
+	    for (int i = 0; i < autores.size(); i++) {
+	        Autor autor = autores.get(i);
+	        String infoAutor = "ID: " + i + ", Nome: " + autor.getNome();
+	        autoresCadastrados.add(infoAutor);
+	    }
+
+	    String mensagem = "Autores Cadastrados:\n" + String.join("\n", autoresCadastrados);
+
 	    List<Autor> autoresLivro = new ArrayList<>();
 	    boolean cadastrarAutor = true;
 	    while (cadastrarAutor) {
-	        String nomeAutor = JOptionPane.showInputDialog("Digite o nome do autor do livro:");
-	        Autor autorEncontrado = Livro.buscarAutor(autores, nomeAutor);
-	        if (autorEncontrado != null) {
-	            autoresLivro.add(autorEncontrado);
+	        String inputIdAutor = JOptionPane.showInputDialog(mensagem + "\n\nDigite o ID do autor do livro:");
+	        int idAutor = Integer.parseInt(inputIdAutor);
+	        if (idAutor >= 0 && idAutor < autores.size()) {
+	            autoresLivro.add(autores.get(idAutor));
 	        } else {
-	            JOptionPane.showMessageDialog(null, "Autor não encontrado. Por favor, cadastre o autor antes de cadastrar o livro.");
-	            return; 
+	            JOptionPane.showMessageDialog(null, "ID do autor inválido. Por favor, escolha um ID válido.");
+	            continue;
 	        }
 
 	        int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar outro autor para o livro?",
@@ -95,6 +105,7 @@ public class Util {
 
 	    JOptionPane.showMessageDialog(null, "Livro cadastrado com sucesso!");
 	}
+
 
 
 	public static void listarLivrosCadastrados(ArrayList<Livro> livros) {
