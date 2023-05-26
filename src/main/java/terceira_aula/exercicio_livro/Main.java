@@ -22,24 +22,24 @@ public class Main {
 				}
 				break;
 			case 2:
-				Util.cadastrarLivro(autores,livros);
+				Util.cadastrarLivro(autores, livros);
 				break;
 
 			case 3:
 				Util.listarLivrosCadastrados(livros);
-			    break;
+				break;
 			case 4:
-				 Util.listarLivrosPorAutor(livros);
-				    break;
+				Util.listarLivrosPorAutor(livros);
+				break;
 			case 5:
 				Util.pesquisarPorFaixaDeValor(livros);
-			    break;
+				break;
 			case 6:
-				 Util.listarLivrosAutoresComCriancas(livros);
-				 break;
+				Util.listarLivrosAutoresComCriancas(livros);
+				break;
 			case 7:
-				 Util.listarLivrosPorSexoDosAutores(livros);
-				 break;
+				Util.listarLivrosPorSexoDosAutores(livros);
+				break;
 			case 0:
 				break;
 			default:
