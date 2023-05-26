@@ -27,11 +27,11 @@ public class Util {
 			boolean dadosValidos = jogador.validar();
 
 			if (dadosValidos) {
-				time.cadastrarJogador(jogador); // Corrigido para passar o objeto jogador como argumento
+				time.cadastrarJogador(jogador); 
 				JOptionPane.showMessageDialog(null, "Jogador cadastrado com sucesso!");
 			} else {
 				JOptionPane.showMessageDialog(null, "Dados inválidos do jogador. Digite novamente.");
-				continue; // Volta para o início do loop para solicitar dados novamente
+				continue; 
 			}
 
 			int resposta = JOptionPane.showConfirmDialog(null, "Deseja adicionar mais jogadores?",
