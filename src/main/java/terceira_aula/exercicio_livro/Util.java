@@ -7,65 +7,57 @@ import java.util.List;
 public class Util {
 
 	public static ArrayList<Object> cadastrarAutor() {
-		ArrayList<Object> autores = new ArrayList<>();
-		boolean cadastrarAutor = true;
-		while (cadastrarAutor) {
-			JOptionPane.showMessageDialog(null, "=== Cadastro de Autor ===");
-			String nome = JOptionPane.showInputDialog("Nome e sobrenome do Autor:");
-			String sexo = JOptionPane.showInputDialog("Sexo do autor:");
-			char sex = sexo.charAt(0);
-			int idade = Integer.parseInt(JOptionPane.showInputDialog("Digite a idade do autor"));
+	    ArrayList<Object> autores = new ArrayList<>();
+	    boolean cadastrarAutor = true;
+	    while (cadastrarAutor) {
+	        JOptionPane.showMessageDialog(null, "=== Cadastro de Autor ===");
+	        String nome = JOptionPane.showInputDialog("Nome e sobrenome do Autor:");
+	        if (nome == null || nome.trim().isEmpty()) {
+	            JOptionPane.showMessageDialog(null, "Nome inválido. Por favor, digite um nome válido.");
+	            continue;
+	        }
 
-			Autor autor = new Autor(nome, sex, idade);
+	        String sexo = JOptionPane.showInputDialog("Sexo do autor (F - feminino, M - masculino):");
+	        if (sexo == null || sexo.trim().isEmpty() || (sexo.charAt(0) != 'F' && sexo.charAt(0) != 'M')) {
+	            JOptionPane.showMessageDialog(null, "Sexo inválido. Por favor, digite 'F' para feminino ou 'M' para masculino.");
+	            continue;
+	        }
 
-			boolean dadosValidos = autor.validar();
+	        int idade;
+	        try {
+	            String idadeStr = JOptionPane.showInputDialog("Digite a idade do autor:");
+	            idade = Integer.parseInt(idadeStr);
+	            if (idade <= 0) {
+	                JOptionPane.showMessageDialog(null, "Idade inválida. Por favor, digite uma idade válida.");
+	                continue; // Volta para o início do loop para solicitar novamente a idade
+	            }
+	        } catch (NumberFormatException e) {
+	            JOptionPane.showMessageDialog(null, "Idade inválida. Por favor, digite um número válido.");
+	            continue; // Volta para o início do loop para solicitar novamente a idade
+	        }
 
-			if (dadosValidos) {
-				autores.add(autor);
-				JOptionPane.showMessageDialog(null, "Autor cadastrado com sucesso!");
-			} else {
-				int resposta;
-				do {
-					resposta = JOptionPane.showConfirmDialog(null, "Deseja corrigir os campos inválidos?",
-							"Cadastro de Autor", JOptionPane.YES_NO_OPTION);
+	        Autor autor = new Autor(nome, sexo.charAt(0), idade);
 
-					if (resposta == JOptionPane.YES_OPTION) {
-						if (autor.getNome().trim().isEmpty()) {
-							autor.setNome(JOptionPane.showInputDialog("Nome do Autor:"));
-						}
+	        boolean dadosValidos = autor.validar();
 
-						if (autor.getSexo() != 'F' && autor.getSexo() != 'M') {
-							sexo = JOptionPane.showInputDialog("Sexo do autor:");
-							autor.setSexo(sexo.charAt(0));
-						}
+	        if (dadosValidos) {
+	            autores.add(autor);
+	            JOptionPane.showMessageDialog(null, "Autor cadastrado com sucesso!");
+	        } else {
+	            JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o autor. Verifique os dados e tente novamente.");
+	            continue;
+	        }
 
-						if (autor.getIdade() <= 0) {
-							idade = Integer.parseInt(JOptionPane.showInputDialog("Digite a idade do autor"));
-							autor.setIdade(idade);
-						}
+	        int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar outro autor?", "Cadastro de Autor",
+	                JOptionPane.YES_NO_OPTION);
+	        cadastrarAutor = (resposta == JOptionPane.YES_OPTION);
 
-						dadosValidos = autor.validar();
-					}
-				} while (resposta == JOptionPane.YES_OPTION);
+	        if (!cadastrarAutor) {
+	            break;
+	        }
+	    }
 
-				if (dadosValidos) {
-					autores.add(autor);
-					JOptionPane.showMessageDialog(null, "Autor cadastrado com sucesso!");
-				} else {
-					JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o autor.");
-				}
-			}
-
-			int resposta = JOptionPane.showConfirmDialog(null, "Deseja cadastrar outro autor?", "Cadastro de Autor",
-					JOptionPane.YES_NO_OPTION);
-			cadastrarAutor = (resposta == JOptionPane.YES_OPTION);
-
-			if (!cadastrarAutor) {
-				break;
-			}
-		}
-
-		return autores;
+	    return autores;
 	}
 
 	public static void cadastrarLivro(ArrayList<Autor> autores, ArrayList<Livro> livros) {
