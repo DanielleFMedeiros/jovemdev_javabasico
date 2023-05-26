@@ -95,16 +95,6 @@ public class Util {
 		return timeMaisGols;
 	}
 
-	public static int escolherOP() {
-		String menu = "1 - Cadastrar Time\r\n"
-				+ "2 - Listar todos jogadores de um time\r\n"
-				+ "3 - Verificar artilheiro do campeonato\r\n"
-				+ "4 - Verificar qual time fez mais gols no campeonato\r\n"
-				+ "5 - Sair \r\n";
-
-		return Integer.parseInt(JOptionPane.showInputDialog(menu));
-	}
-
 	public static Time selecionarTime(List<Time> times) {
 		EnumTime[] enumTimes = EnumTime.values();
 		String opcoesTimes = "Times disponíveis:\n";
