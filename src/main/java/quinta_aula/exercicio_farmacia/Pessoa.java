@@ -1,38 +1,27 @@
 package quinta_aula.exercicio_farmacia;
 
+import java.util.List;
+
 public class Pessoa {
-	private String nome;
-	private String alergia;
-	private String doenca;
+    private String nome;
+    private String sintoma;
+    private List<String> alergias;
 
-	public Pessoa(String nome, String alergia, String doenca) {
-		this.nome = nome;
-		this.alergia = alergia;
-		this.doenca = doenca;
-	}
+    public Pessoa(String nome, String sintoma, List<String> alergias) {
+        this.nome = nome;
+        this.sintoma = sintoma;
+        this.alergias = alergias;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getSintoma() {
+        return sintoma;
+    }
 
-	public String getAlergia() {
-		return alergia;
-	}
-
-	public void setAlergia(String alergia) {
-		this.alergia = alergia;
-	}
-
-	public String getDoenca() {
-		return doenca;
-	}
-
-	public void setDoenca(String doenca) {
-		this.doenca = doenca;
-	}
-
+    public List<String> getAlergias() {
+        return alergias;
+    }
 }
