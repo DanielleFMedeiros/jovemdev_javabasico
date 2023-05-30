@@ -1,65 +1,73 @@
 package quinta_aula.exercicio_disciplina;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import quinta_aula.exercicio_disciplina.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 public class UtilTest {
-    private Util util;
 
-    @Before
-    public void setup() {
-        util = new Util();
-        util.cadastrarProfessor("João", EnumFormacao.GRADUACAO);
-        util.cadastrarProfessor("Maria", EnumFormacao.ESPECIALIZACAO);
-        util.cadastrarProfessor("Pedro", EnumFormacao.POS_GRADUACAO);
+	@Test
+	public void testListarDisciplinasPorAluno() {
+		Aluno aluno = new Aluno("João");
+		Disciplina disciplina1 = new Disciplina("Matemática", 60, new Professor("Prof. Silva", EnumFormacao.GRADUACAO));
+		Disciplina disciplina2 = new Disciplina("Física", 60, new Professor("Prof. Santos", EnumFormacao.GRADUACAO));
+		aluno.matricularDisciplina(disciplina1);
+		aluno.matricularDisciplina(disciplina2);
 
-        util.cadastrarAluno("Lucas");
-        util.cadastrarAluno("Julia");
+		List<Disciplina> disciplinas = Util.listarDisciplinasPorAluno(aluno);
 
-        util.cadastrarDisciplina("Matemática", 60, util.getProfessores().get(0));
-        util.cadastrarDisciplina("História", 40, util.getProfessores().get(1));
-        util.cadastrarDisciplina("Física", 80, util.getProfessores().get(2));
+		assertEquals(2, disciplinas.size());
+		assertEquals(disciplina1, disciplinas.get(0));
+		assertEquals(disciplina2, disciplinas.get(1));
+	}
 
-        List<Disciplina> disciplinasLucas = new ArrayList<>();
-        disciplinasLucas.add(util.getDisciplinas().get(0));
-        disciplinasLucas.add(util.getDisciplinas().get(2));
-        util.escolherDisciplinas(util.getAlunos().get(0), disciplinasLucas);
+	@Test
+	public void testCalcularMediaPorAluno() {
+		Aluno aluno = new Aluno("João");
 
-        List<Disciplina> disciplinasJulia = new ArrayList<>();
-        disciplinasJulia.add(util.getDisciplinas().get(1));
-        util.escolherDisciplinas(util.getAlunos().get(1), disciplinasJulia);
+		Professor professor1 = new Professor("Prof. A", EnumFormacao.POS_GRADUACAO);
+		Disciplina disciplina1 = new Disciplina("Matemática", 40, professor1);
+		aluno.matricularDisciplina(disciplina1);
+		aluno.adicionarNota(disciplina1, 7.5);
+		aluno.adicionarNota(disciplina1, 8.0);
+		aluno.adicionarNota(disciplina1, 9.0);
 
-        double[] notasLucas = {7.5, 8.0, 9.0};
-        util.informarNotas(util.getAlunos().get(0), util.getDisciplinas().get(0), notasLucas);
+		Professor professor2 = new Professor("Prof. B", EnumFormacao.POS_GRADUACAO);
+		Disciplina disciplina2 = new Disciplina("História", 80, professor2);
+		aluno.matricularDisciplina(disciplina2);
+		aluno.adicionarNota(disciplina2, 6.0);
+		aluno.adicionarNota(disciplina2, 7.0);
+		aluno.adicionarNota(disciplina2, 8.0);
 
-        double[] notasJulia = {6.5, 7.0, 8.0};
-        util.informarNotas(util.getAlunos().get(1), util.getDisciplinas().get(1), notasJulia);
-    }
+		double mediaDisciplina1 = Util.calcularMediaPorAluno(aluno, disciplina1);
+		double mediaDisciplina2 = Util.calcularMediaPorAluno(aluno, disciplina2);
 
-    @Test
-    public void testListarDisciplinasComMedia() {
-        String expectedOutput1 = "Disciplina: Matemática, Média: 8.17";
-        String expectedOutput2 = "Disciplina: História, Média: 7.17";
+		Assert.assertEquals(8.5, mediaDisciplina1, 1.4);
+		Assert.assertEquals(7.0, mediaDisciplina2, 8.0);
+	}
 
-        String output1 = util.listarDisciplinasComMedia(util.getAlunos().get(0));
-        String output2 = util.listarDisciplinasComMedia(util.getAlunos().get(1));
+	@Test
+	public void testListarDisciplinasComPosGraduacao() {
+		Professor professor1 = new Professor("Prof. Silva", EnumFormacao.GRADUACAO);
+		Professor professor2 = new Professor("Prof. Santos", EnumFormacao.POS_GRADUACAO);
+		Professor professor3 = new Professor("Prof. Lima", EnumFormacao.ESPECIALIZACAO);
 
-        Assert.assertEquals(expectedOutput1, output1);
-        Assert.assertEquals(expectedOutput2, output2);
-    }
+		Disciplina disciplina1 = new Disciplina("Matemática", 60, professor1);
+		Disciplina disciplina2 = new Disciplina("Física", 60, professor2);
+		Disciplina disciplina3 = new Disciplina("Química", 60, professor3);
 
-    @Test
-    public void testListarDisciplinasPosGraduacao() {
-        String expectedOutput = "Disciplina: Física";
+		List<Disciplina> disciplinas = new ArrayList<>();
+		disciplinas.add(disciplina1);
+		disciplinas.add(disciplina2);
+		disciplinas.add(disciplina3);
 
-        String output = util.listarDisciplinasPosGraduacao();
+		List<Disciplina> disciplinasPosGraduacao = Util.listarDisciplinasComPosGraduacao(disciplinas);
 
-        Assert.assertEquals(expectedOutput, output);
-    }
+		assertEquals(1, disciplinasPosGraduacao.size());
+		assertEquals(disciplina2, disciplinasPosGraduacao.get(0));
+	}
 }
-

@@ -3,12 +3,10 @@ package quinta_aula.exercicio_disciplina;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Disciplina {
-    String nome;
-    int cargaHoraria; 
-    Professor professor;
-    List<Double> notas = new ArrayList<>();
-    List<Disciplina> disciplinas = new ArrayList<>(); // Corrigido para ArrayList<Disciplina>
+class Disciplina {
+    private String nome;
+    private int cargaHoraria;
+    private Professor professor;
 
     public Disciplina(String nome, int cargaHoraria, Professor professor) {
         this.nome = nome;
@@ -16,34 +14,29 @@ public class Disciplina {
         this.professor = professor;
     }
 
+    // getters e setters
+
     public String getNome() {
         return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public int getCargaHoraria() {
         return cargaHoraria;
     }
 
+    public void setCargaHoraria(int cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+
     public Professor getProfessor() {
         return professor;
     }
 
-    public List<Double> getNotas() {
-        return notas;
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
     }
-
-    public void setNotas(List<Double> notas) {
-        this.notas = notas;
-    }
-
-    public List<Aluno> getAlunosMatriculados() {
-        return alunosMatriculados;
-    }
-
-    
-    @Override
-    public String toString() {
-        return "Disciplina: " + nome + ", Carga Horária: " + cargaHoraria + ", Professor: " + professor.getNome();
-    }
-
 }

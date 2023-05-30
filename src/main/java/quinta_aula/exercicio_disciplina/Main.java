@@ -1,43 +1,45 @@
 package quinta_aula.exercicio_disciplina;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import quinta_aula.exercicio_disciplina.EnumFormacao;
-
-
 public class Main {
-    public static void main(String[] args) {
-        
-        Util util = new Util();
-        util.cadastrarProfessor("João", EnumFormacao.GRADUACAO);
-        util.cadastrarProfessor("Maria", EnumFormacao.ESPECIALIZACAO);
-        util.cadastrarProfessor("Pedro", EnumFormacao.POS_GRADUACAO);
+	public static void main(String[] args) {
 
-        util.cadastrarAluno("Lucas");
-        util.cadastrarAluno("Julia");
+		Professor professor1 = new Professor("João", EnumFormacao.GRADUACAO);
+		Professor professor2 = new Professor("Maria", EnumFormacao.POS_GRADUACAO);
 
-        util.cadastrarDisciplina("Matemática", 60, util.getProfessores().get(0));
-        util.cadastrarDisciplina("História", 40, util.getProfessores().get(1));
-        util.cadastrarDisciplina("Física", 80, util.getProfessores().get(2));
+		Aluno aluno1 = new Aluno("Pedro");
+		Aluno aluno2 = new Aluno("Ana");
 
-        List<Disciplina> disciplinasLucas = new ArrayList<>();
-        disciplinasLucas.add(util.getDisciplinas().get(0));
-        disciplinasLucas.add(util.getDisciplinas().get(2));
-        util.escolherDisciplinas(util.getAlunos().get(0), disciplinasLucas);
+		Disciplina disciplina1 = new Disciplina("Matemática", 60, professor1);
+		Disciplina disciplina2 = new Disciplina("História", 40, professor2);
+		Disciplina disciplina3 = new Disciplina("Português", 80, professor1);
 
-        List<Disciplina> disciplinasJulia = new ArrayList<>();
-        disciplinasJulia.add(util.getDisciplinas().get(1));
-        util.escolherDisciplinas(util.getAlunos().get(1), disciplinasJulia);
+		aluno1.matricularDisciplina(disciplina1);
+		aluno1.matricularDisciplina(disciplina2);
+		aluno2.matricularDisciplina(disciplina1);
+		aluno2.matricularDisciplina(disciplina3);
 
-        double[] notasLucas = {7.5, 8.0, 9.0};
-        util.informarNotas(util.getAlunos().get(0), util.getDisciplinas().get(0), notasLucas);
+		aluno1.adicionarNota(disciplina1, 7.5);
+		aluno1.adicionarNota(disciplina2, 8.0);
+		aluno2.adicionarNota(disciplina1, 6.0);
+		aluno2.adicionarNota(disciplina3, 9.5);
 
-        double[] notasJulia = {6.5, 7.0, 8.0};
-        util.informarNotas(util.getAlunos().get(1), util.getDisciplinas().get(1), notasJulia);
-        
-        util.listarDisciplinasComMedia(util.getAlunos().get(0));
-        util.listarDisciplinasComMedia(util.getAlunos().get(1));
-      
-        util.listarDisciplinasPosGraduacao();
-    }
+		List<Disciplina> disciplinasAluno1 = Util.listarDisciplinasPorAluno(aluno1);
+		System.out.println("Disciplinas do Aluno 1 (" + aluno1.getNome() + "):");
+		for (Disciplina disciplina : disciplinasAluno1) {
+			System.out.println(disciplina.getNome());
+		}
+
+		double mediaAluno2Disciplina1 = Util.calcularMediaPorAluno(aluno2, disciplina1);
+		System.out.println("Média do Aluno 2 (" + aluno2.getNome() + ") na disciplina " + disciplina1.getNome() + ": "
+				+ mediaAluno2Disciplina1);
+
+		List<Disciplina> disciplinasPosGraduacao = Util
+				.listarDisciplinasComPosGraduacao(List.of(disciplina1, disciplina2, disciplina3));
+		System.out.println("Disciplinas lecionadas por professores com pós-graduação:");
+		for (Disciplina disciplina : disciplinasPosGraduacao) {
+			System.out.println(disciplina.getNome());
+		}
+	}
 }
