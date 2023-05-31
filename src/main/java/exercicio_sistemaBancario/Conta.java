@@ -1,7 +1,8 @@
 package exercicio_sistemaBancario;
 
 import lombok.Getter;
-
+import lombok.Setter;
+@Setter
 @Getter
 public class Conta {
 	private int numero;
@@ -9,28 +10,21 @@ public class Conta {
 	private String nomeCorrentista;
 	protected double saldo;
 
-	private String contaDestino;
-	
-	public Double Deposito() {
-		double valorDeposito = 0;
+	public void deposito(double valorDeposito) {
 		saldo = saldo + valorDeposito;
-		return saldo;	
 	}
-	
-	public Double Saque() {
-		double valorSaque = 0;
+
+	public void saque(double valorSaque) {
 		saldo = saldo - valorSaque;
-		return saldo;
 	}
-	
-	public void Transferencia(Conta contaDestino, double valorTransferencia){
-		if(saldo<valorTransferencia) {
-			System.out.println("Saldo insuficiente para realizar transferencia");
+
+	public void transferencia(Conta contaDestino, double valorTransferencia) throws SaldoInsuficienteException {
+		if (saldo < valorTransferencia) {
+			throw new SaldoInsuficienteException("Saldo insuficiente para realizar transferencia");
+		} else {
+			saldo -= valorTransferencia;
+			contaDestino.saldo += valorTransferencia;
 		}
-		
-		saldo-= valorTransferencia;
-		contaDestino.saldo +=valorTransferencia;
-	
+
 	}
-	
 }
