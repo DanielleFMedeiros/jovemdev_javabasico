@@ -1,9 +1,12 @@
-package quinta_aula.exercicio_farmacia;
+package quinta_aula.exercicio_farmacia.model;
 
 import java.util.List;
 
+import quinta_aula.exercicio_farmacia.enuns.EnumAdministracao;
+
 public class Medicamento {
-	private String nome;
+
+    private String nome;
     private EnumAdministracao administracao;
     private List<String> alergiasContraindicadas;
     private List<String> indicacoes;
@@ -14,12 +17,13 @@ public class Medicamento {
         this.alergiasContraindicadas = alergiasContraindicadas;
         this.indicacoes = indicacoes;
     }
+    
 
     public String getNome() {
         return nome;
     }
 
-    public String getAdministracao() {
+    public EnumAdministracao getAdministracao() {
         return administracao;
     }
 
@@ -31,4 +35,8 @@ public class Medicamento {
         return indicacoes;
     }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
 }
