@@ -36,15 +36,16 @@ public class Util {
     }
 
     public String listarPessoasEMedicamentos() {
-        StringBuilder sb = new StringBuilder();
+        String result = "";
 
         for (Pessoa pessoa : pessoas) {
-            sb.append("Pessoa: ").append(pessoa.getNome()).append("\n");
-            sb.append("Medicamentos: ").append(pessoa.getMedicamentos()).append("\n\n");
+            result += "Pessoa: " + pessoa.getNome() + "\n";
+            result += "Medicamentos: " + pessoa.getMedicamentos() + "\n\n";
         }
 
-        return sb.toString();
+        return result;
     }
+
 
     public Medicamento selecionarMedicamento(String nome) {
         for (Medicamento medicamento : medicamentos) {
