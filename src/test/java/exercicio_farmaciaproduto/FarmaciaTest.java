@@ -66,6 +66,31 @@ public class FarmaciaTest {
             farmacia.realizarVenda(cliente, produto, 1, "");
         });
     }
+    
+
+    @Test
+    public void testRealizarVenda_MedicamentoReceitaObrigatoria_ComNomeMedico() {
+        Cliente cliente = new Cliente("Maria", 500.0);
+        Produto produto = new Medicamentos("Medicamento", 10, 19.99, true);
+        int quantidade = 1;
+        String nomeMedico = "Dr. João";
+
+        Farmacia farmacia = new Farmacia();
+        farmacia.realizarVenda(cliente, produto, quantidade, nomeMedico);
+        // Verificar se não ocorreu uma exceção, pois o nome do médico foi fornecido corretamente
+    }
+
+    @Test
+    public void testRealizarVenda_Perfumaria_DividaInferior300() {
+        Cliente cliente = new Cliente("Ana", 200.0);
+        Produto produto = new Perfumaria("Perfume", 5, 99.99);
+        int quantidade = 1;
+        String nomeMedico = "";
+
+        Farmacia farmacia = new Farmacia();
+        farmacia.realizarVenda(cliente, produto, quantidade, nomeMedico);
+        // Verificar se não ocorreu uma exceção, pois a dívida do cliente é inferior a 300,00
+    }
 
     @Test
     void pagarConta_ValorPagamentoMaiorOuIgualAoSaldoDevedor_ZerarSaldoDevedorDoCliente() {
