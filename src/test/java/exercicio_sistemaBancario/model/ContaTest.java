@@ -1,7 +1,10 @@
-package exercicio_sistemaBancario;
+package exercicio_sistemaBancario.model;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import exercicio_sistemaBancario.Exception.SaldoInsuficienteException;
+import exercicio_sistemaBancario.model.Conta;
 
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;

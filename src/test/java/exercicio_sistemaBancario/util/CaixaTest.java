@@ -1,8 +1,11 @@
-package exercicio_sistemaBancario;
+package exercicio_sistemaBancario.util;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import exercicio_sistemaBancario.model.Conta;
+import exercicio_sistemaBancario.util.Caixa;
 
 public class CaixaTest {
 

@@ -1,4 +1,4 @@
-package exercicio_sistemaBancario;
+package exercicio_sistemaBancario.model;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,5 +1,6 @@
-package exercicio_sistemaBancario;
+package exercicio_sistemaBancario.model;
 
+import exercicio_sistemaBancario.Exception.SaldoInsuficienteException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,10 +40,12 @@ public class Conta {
 
 	
 	public void deposito(double valorDeposito) {
+		//verificar se valor é maior q 0
 		saldo = saldo + valorDeposito;
 	}
 
 	public void saque(double valorSaque) {
+		//verificar se o saldo é igual ou maior q o valorsaque
 		saldo = saldo - valorSaque;
 	}
 

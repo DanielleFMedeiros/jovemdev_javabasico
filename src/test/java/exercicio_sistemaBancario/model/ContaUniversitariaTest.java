@@ -1,4 +1,4 @@
-package exercicio_sistemaBancario;
+package exercicio_sistemaBancario.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import exercicio_sistemaBancario.Exception.SaldoInsuficienteException;
+import exercicio_sistemaBancario.model.ContaUniversitaria;
 
 public class ContaUniversitariaTest {
 
