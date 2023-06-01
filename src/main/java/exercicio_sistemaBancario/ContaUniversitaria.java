@@ -1,18 +1,18 @@
 package exercicio_sistemaBancario;
 
 public class ContaUniversitaria extends Conta {
-	
-	private static final double LIMITE_SALDO = 2000.0;
-	
-	@Override
-	public void saque(double valorSaque) {
-		if (valorSaque>saldo) {
+
+    private static final double LIMITE_SALDO = 2000.0;
+
+    @Override
+    public void saque(double valorSaque) {
+        if (valorSaque > saldo) {
             throw new IllegalArgumentException("O saldo não pode ultrapassar R$ 2.000,00");
-		}else {
-			saldo -= valorSaque;
-		}
-	}
-	
+        } else {
+            saldo -= valorSaque;
+        }
+    }
+
     @Override
     public void deposito(double valorDeposito) {
         if (saldo + valorDeposito > LIMITE_SALDO) {
@@ -21,24 +21,23 @@ public class ContaUniversitaria extends Conta {
 
         saldo += valorDeposito;
     }
-    
+
     @Override
-    public void transferencia(Conta contaDestino, double valorTransferencia) {
-        if (valorTransferencia > saldo) {
-            throw new IllegalArgumentException("Saldo insuficiente para transferência");
+    public void transferencia(Conta contaDestino, double valorTransferencia, double saldoNovo) throws SaldoInsuficienteException {
+        if (valorTransferencia <= 0) {
+            throw new IllegalArgumentException("O valor da transferência deve ser maior que zero.");
+        }
+        if (saldoNovo > LIMITE_SALDO) {
+            throw new IllegalArgumentException("Saldo do destino ultrapassa o limite da conta universitária");
         }
 
-        if (contaDestino instanceof ContaUniversitaria) {
-            double novoSaldoDestino = contaDestino.getSaldo() + valorTransferencia;
-            if (novoSaldoDestino > LIMITE_SALDO) {
-                throw new IllegalArgumentException("O saldo da conta destino não pode ultrapassar R$ 2.000,00");
-            }
+        if (saldo < valorTransferencia) {
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar transferência");
         
-        }else {
-        	saldo -= valorTransferencia;
-            contaDestino.setSaldo(contaDestino.getSaldo() + valorTransferencia);
+        
+        } else {
+        	this.saldo = saldo - valorTransferencia;
+            contaDestino.deposito(valorTransferencia);
         }
-
-        
     }
 }
