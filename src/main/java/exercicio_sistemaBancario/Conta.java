@@ -1,6 +1,5 @@
-package exercicio_sistemaBancario.model;
+package exercicio_sistemaBancario;
 
-import exercicio_sistemaBancario.Exception.SaldoInsuficienteException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,13 +39,21 @@ public class Conta {
 
 	
 	public void deposito(double valorDeposito) {
-		//verificar se valor é maior q 0
-		saldo = saldo + valorDeposito;
+		if(valorDeposito>0) {
+			saldo = saldo + valorDeposito;
+		}else {
+			throw new IllegalArgumentException("O valor do depósito deve ser maior que zero.");
+		}
 	}
 
 	public void saque(double valorSaque) {
-		//verificar se o saldo é igual ou maior q o valorsaque
-		saldo = saldo - valorSaque;
+		if(saldo>=valorSaque) {
+			saldo = saldo - valorSaque;
+		}else {
+			throw new IllegalArgumentException("O valor insuficiente");
+		}
+		
+		
 	}
 
 	public void transferencia(Conta contaDestino, double valorTransferencia, double saldoNovo) throws SaldoInsuficienteException {

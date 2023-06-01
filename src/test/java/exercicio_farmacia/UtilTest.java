@@ -1,4 +1,4 @@
-package exercicio_farmacia.util;
+package exercicio_farmacia;
 
 import org.junit.Before;
 import org.junit.Test;

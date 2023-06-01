@@ -1,4 +1,4 @@
-package exercicio_sistemaBancario.model;
+package exercicio_sistemaBancario;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertThrows;
@@ -6,7 +6,7 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import exercicio_sistemaBancario.model.ContaEspecial;
+import exercicio_sistemaBancario.ContaEspecial;
 
 public class ContaEspecialTest {
     

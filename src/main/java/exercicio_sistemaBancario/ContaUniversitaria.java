@@ -1,6 +1,4 @@
-package exercicio_sistemaBancario.model;
-
-import exercicio_sistemaBancario.Exception.SaldoInsuficienteException;
+package exercicio_sistemaBancario;
 
 public class ContaUniversitaria extends Conta {
 

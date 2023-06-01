@@ -3,6 +3,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import exercicio_farmaciaproduto.Cliente;
+import exercicio_farmaciaproduto.Farmacia;
+import exercicio_farmaciaproduto.Medicamentos;
+import exercicio_farmaciaproduto.Perfumaria;
+import exercicio_farmaciaproduto.Produto;
+
 import java.util.List;
 
 public class FarmaciaTest {

@@ -1,10 +1,9 @@
-package exercicio_sistemaBancario.model;
+package exercicio_sistemaBancario;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import exercicio_sistemaBancario.Exception.SaldoInsuficienteException;
-import exercicio_sistemaBancario.model.Conta;
+import exercicio_sistemaBancario.Conta;
 
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -82,29 +81,25 @@ public class ContaTest {
 			contaOrigem.transferencia(contaDestino, valorTransferencia, valorTransferencia);
 		});
 	}
-	
+
 	@Test
 	void testValorTransferenciaMenorQueZero_Exception() throws SaldoInsuficienteException {
-	    Conta contaOrigem = new Conta();
-	    contaOrigem.setSaldo(0.0);
+		Conta contaOrigem = new Conta();
+		contaOrigem.setSaldo(0.0);
 
-	    Conta contaDestino = new Conta();
-	    contaDestino.setSaldo(200.0);
+		Conta contaDestino = new Conta();
+		contaDestino.setSaldo(200.0);
 
-	    double valorTransferencia = -200;
-	    double saldoNovo = contaOrigem.getSaldo() - valorTransferencia; // Corrigido: usar "-" em vez de "+"
+		double valorTransferencia = -200;
+		double saldoNovo = contaOrigem.getSaldo() - valorTransferencia; // Corrigido: usar "-" em vez de "+"
 
-	    try {
-	        contaOrigem.transferencia(contaDestino, valorTransferencia, saldoNovo);
-	        fail("SaldoInsuficienteException não foi lançada.");
-	    } catch (IllegalArgumentException e) {
-	        assertEquals("O valor da transferência deve ser maior que zero.", e.getMessage());
-	    }
+		try {
+			contaOrigem.transferencia(contaDestino, valorTransferencia, saldoNovo);
+			fail("SaldoInsuficienteException não foi lançada.");
+		} catch (IllegalArgumentException e) {
+			assertEquals("O valor da transferência deve ser maior que zero.", e.getMessage());
+		}
 	}
-
-
-
-
 
 	@Test
 	void testTransferenciaSaldoSuficiente() throws SaldoInsuficienteException {

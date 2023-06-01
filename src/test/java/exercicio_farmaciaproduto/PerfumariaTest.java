@@ -1,6 +1,9 @@
 package exercicio_farmaciaproduto;
 
 import org.junit.Test;
+
+import exercicio_farmaciaproduto.Perfumaria;
+
 import static org.junit.Assert.*;
 
 public class PerfumariaTest {

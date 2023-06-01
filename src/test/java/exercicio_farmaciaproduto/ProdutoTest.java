@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import exercicio_farmaciaproduto.Produto;
+
 public class ProdutoTest {
 
     @Test

@@ -38,17 +38,15 @@ public class Pessoa {
     }
 
     public boolean possuiAlergiaContraindicada(Medicamento medicamento) {
-        List<String> alergiasPessoa = getAlergias();
-        List<String> contraindicacoesMedicamento = medicamento.getAlergiasContraindicadas();
-
-        for (String alergia : alergiasPessoa) {
-            if (contraindicacoesMedicamento.contains(alergia)) {
+        List<String> alergiasContraindicadas = medicamento.getAlergiasContraindicadas();
+        for (String alergia : alergiasContraindicadas) {
+            if (alergias.contains(alergia)) {
                 return true;
             }
         }
-
         return false;
     }
+
 
     @Override
     public String toString() {

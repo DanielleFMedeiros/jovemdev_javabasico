@@ -39,4 +39,10 @@ public class Medicamento {
     public String toString() {
         return nome;
     }
+
+
+    public void adicionarAlergiaContraindicada(String alergia) {
+        alergiasContraindicadas.add(alergia);
+    }
+
 }

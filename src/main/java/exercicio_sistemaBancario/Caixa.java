@@ -1,6 +1,4 @@
-package exercicio_sistemaBancario.util;
-
-import exercicio_sistemaBancario.model.Conta;
+package exercicio_sistemaBancario;
 
 public class Caixa {
 	public void transferencia(Conta origem, Conta destino, double valor) {
