@@ -1,4 +1,4 @@
-/*1. Selecionar todos os registros e atributos da entidade cargo.✅
+/*1. Selecionar todos os registros e atributos da entidade cargo.
 
 select
 	*
