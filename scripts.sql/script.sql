@@ -266,4 +266,81 @@ group by
 	partido.sigla
 order by
 	votos desc;
+	
+21. Selecionar a quantidade de votos registrados para prefeito na cidade de tubarão. Os votos registrados são considerados os votos para os candidatos, mais os votos brancos e nulos. 
+
+SELECT 
+	candidato.nome, 
+	SUM(voto.voto) + SUM(voto_invalido.brancos) + SUM(voto_invalido.nulos) AS votos
+FROM
+	voto
+INNER JOIN candidato ON
+	candidato.id = voto.candidato
+INNER JOIN 
+	cidade ON cidade.id = candidato.cidade AND cidade.nome = 'TUBARÃO'
+INNER JOIN 
+	cargo ON cargo.id = candidato.cargo AND cargo.nome = 'Prefeito'
+LEFT JOIN
+	voto_invalido ON voto_invalido.cidade = cidade.id AND voto_invalido.cargo = cargo.id
+GROUP BY 
+	candidato.nome;
+
+22. Selecionar a quantidade de eleitores que deixaram de votar na cidade de tubarão. 
+
+SELECT 
+	SUM(voto_invalido.nulos) + SUM(voto_invalido.brancos) AS eleitores_faltantes
+FROM 
+	voto_invalido
+INNER JOIN 
+	cidade ON cidade.id = voto_invalido.cidade
+WHERE 
+	cidade.nome = 'TUBARÃO'; 
+
+23. Selecionar a quantidade de eleitores que deixaram de votar em cada cidade, ordenado pela maior quantidade de faltantes. 
+
+SELECT 
+	cidade.nome, cidade.qt_eleitores - SUM(voto.voto) - SUM(voto_invalido.brancos) - SUM(voto_invalido.nulos) AS eleitores_faltantes
+FROM 
+	cidade
+LEFT JOIN 
+	voto ON voto.candidato = cidade.id
+LEFT JOIN 
+	voto_invalido ON voto_invalido.cidade = cidade.id
+GROUP BY
+	cidade.nome, cidade.qt_eleitores
+ORDER BY eleitores_faltantes DESC;
+
+24. Selecionar o percentual de faltantes em cada cidade, ordenado pelo maior percentual. 
+
+SELECT
+	cidade.nome, 
+	((SUM(voto_invalido.brancos) + SUM(voto_invalido.nulos)) / cidade.qt_eleitores) * 100 AS percentual_faltantes
+FROM 
+	cidade
+LEFT JOIN 
+	voto_invalido ON voto_invalido.cidade = cidade.id
+GROUP BY 
+	cidade.nome, cidade.qt_eleitores
+ORDER BY 
+	percentual_faltantes DESC;
+
+25. Selecionar o candidato a prefeito eleito de cada cidade, ordenado pelo nome da cidade.
+
+SELECT 
+	cidade.nome AS cidade, 
+	candidato.nome AS candidato_prefeito,
+	MAX(voto.voto) AS total_votos
+FROM 
+	cidade
+INNER JOIN 
+	candidato ON candidato.cidade = cidade.id
+INNER JOIN 
+	cargo ON cargo.id = candidato.cargo AND cargo.nome = 'Prefeito'
+LEFT JOIN 
+	voto ON voto.candidato = candidato.id
+GROUP BY 
+	cidade.id
+ORDER BY 
+	cidade.nome;
+
 */
