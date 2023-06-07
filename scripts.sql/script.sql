@@ -271,7 +271,7 @@ order by
 
 SELECT 
 	candidato.nome, 
-	SUM(voto.voto) + SUM(voto_invalido.brancos) + SUM(voto_invalido.nulos) AS votos
+	SUM(voto.voto) + vi.brancos+ vi.nulos votos
 FROM
 	voto
 INNER JOIN candidato ON
@@ -280,21 +280,26 @@ INNER JOIN
 	cidade ON cidade.id = candidato.cidade AND cidade.nome = 'TUBARÃO'
 INNER JOIN 
 	cargo ON cargo.id = candidato.cargo AND cargo.nome = 'Prefeito'
-LEFT JOIN
-	voto_invalido ON voto_invalido.cidade = cidade.id AND voto_invalido.cargo = cargo.id
+INNER JOIN
+	voto_invalido vi ON vi.cidade = cidade.id AND vi.cargo = cargo.id
 GROUP BY 
-	candidato.nome;
+	vi.brancos, vi.nulos;
 
 22. Selecionar a quantidade de eleitores que deixaram de votar na cidade de tubarão. 
 
 SELECT 
-	SUM(voto_invalido.nulos) + SUM(voto_invalido.brancos) AS eleitores_faltantes
+	cidade.qt_eleitores - (sum (voto.voto) + vi.brancos + vi.nulos) as total
 FROM 
-	voto_invalido
+	voto
 INNER JOIN 
-	cidade ON cidade.id = voto_invalido.cidade
-WHERE 
-	cidade.nome = 'TUBARÃO'; 
+	candidato on candidato.id = voto.candidato
+INNER JOIN 
+	cargo on cargo.id = candidato.cargo and cargo.nome = 'Vereador'
+INNER JOIN 
+	cidade on cidade.id = candidato.cidade and cidade.nome = 'TUBARÃO'
+INNER JOIN
+	voto_invalido vi on vi.cargo = candidato.cargo and vi.cidade = candidato.id
+GROUP BY cidade.qt_eleitores, vi.brancos, vi.nulos;
 
 23. Selecionar a quantidade de eleitores que deixaram de votar em cada cidade, ordenado pela maior quantidade de faltantes. 
 
