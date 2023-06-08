@@ -304,48 +304,54 @@ GROUP BY cidade.qt_eleitores, vi.brancos, vi.nulos;
 23. Selecionar a quantidade de eleitores que deixaram de votar em cada cidade, ordenado pela maior quantidade de faltantes. 
 
 SELECT 
-	cidade.nome, cidade.qt_eleitores - SUM(voto.voto) - SUM(voto_invalido.brancos) - SUM(voto_invalido.nulos) AS eleitores_faltantes
+	cidade.nome, (cidade.qt_eleitores  - (sum(voto.voto)+ vi.brancos  + vi.nulos)) AS eleitores_faltantes
 FROM 
-	cidade
-LEFT JOIN 
-	voto ON voto.candidato = cidade.id
-LEFT JOIN 
-	voto_invalido ON voto_invalido.cidade = cidade.id
+	voto
+INNER JOIN
+	candidato ON candidato.id = voto.candidato
+INNER JOIN
+	cidade ON cidade.id = candidato.cidade
+INNER JOIN
+	cargo ON cargo.id = candidato.cargo and cargo.nome  = 'Prefeito'
+INNER JOIN
+	voto_invalido vi on vi.cidade = cidade,id and vi.cargo = cargo.id
 GROUP BY
-	cidade.nome, cidade.qt_eleitores
+	cidade.nome, cidade.qt_eleitores, vi.brancos, vi.nulos
 ORDER BY eleitores_faltantes DESC;
 
 24. Selecionar o percentual de faltantes em cada cidade, ordenado pelo maior percentual. 
 
 SELECT
 	cidade.nome, 
-	((SUM(voto_invalido.brancos) + SUM(voto_invalido.nulos)) / cidade.qt_eleitores) * 100 AS percentual_faltantes
+	((cidade.qt_eleitores  - (sum(voto.voto)+ vi.brancos  + vi.nulos))/cidade.qt_eleitores) * 100 AS percentual_faltantes
 FROM 
-	cidade
-LEFT JOIN 
-	voto_invalido ON voto_invalido.cidade = cidade.id
+	voto
+INNER JOIN
+	candidato on candidato.id = voto.candidato
+INNER JOIN
+	cidade on cidade.id = candidato.cidade
+INNER JOIN
+	cargo on cargo.id = candidato.cargo and cargo.nome = 'Prefeito'
+INNER JOIN 
+	voto_invalido vi on vi.cidade = cidade.id and vi.cargo = cargo.id
 GROUP BY 
-	cidade.nome, cidade.qt_eleitores
+	cidade.nome, cidade.qt_eleitores, vi.brancos, vi.nulos
 ORDER BY 
 	percentual_faltantes DESC;
 
 25. Selecionar o candidato a prefeito eleito de cada cidade, ordenado pelo nome da cidade.
 
-SELECT 
-	cidade.nome AS cidade, 
-	candidato.nome AS candidato_prefeito,
-	MAX(voto.voto) AS total_votos
+SELECT DISTINCT ON (cidade.nome) cidade.nome, candidato.nome, voto.voto
 FROM 
-	cidade
-INNER JOIN 
-	candidato ON candidato.cidade = cidade.id
-INNER JOIN 
-	cargo ON cargo.id = candidato.cargo AND cargo.nome = 'Prefeito'
-LEFT JOIN 
-	voto ON voto.candidato = candidato.id
-GROUP BY 
-	cidade.id
+	voto
+INNER JOIN
+	candidato
+	ON candidato.id = voto.candidato
+INNER JOIN cidade
+	ON cidade.id = candidato.cidade
+INNER JOIN cargo
+	ON cargo.id = candidato.cargo and cargo.nome = 'Prefeito'
 ORDER BY 
-	cidade.nome;
+	cidade.nome, voto.voto desc;
 
 */
